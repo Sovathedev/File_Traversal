@@ -1,0 +1,14 @@
+version: "3.6"
+services:
+  fileupload:
+    build: ./Fileupload
+    restart: unless-stopped
+    ports:
+      - "7777:80"
+    volumes:
+      - ./Fileupload/src:/var/www/html
+      - /var/www/html/upload
+      - /var/www/html/hidden
+      
+     
+    
