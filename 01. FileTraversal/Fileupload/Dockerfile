@@ -15,7 +15,7 @@ RUN chmod a+r /var/www/html/hidden/fakesecret.txt
 
 RUN chmod g+w /var/www/html/upload
 RUN chmod +t -R /var/www/html/upload
-RUN echo "Congratulations. I'm so proud of you my boys. You got not only flag but also my respect. " > /var/www/html/upload/truesecret.txt
+RUN echo "Congratulations. I'm so proud of you my boys. You got not only flag but also my respect. " > /var/www/html/upload/secret.txt
 RUN chmod +r robots.txt
 
 

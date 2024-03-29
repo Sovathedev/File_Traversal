@@ -5,18 +5,20 @@ if (!isset($_SESSION["username"])) {
     exit;
 }
 
-$uploadDir = 'upload/' . session_id() . '/' . $randomHex;
-if (!file_exists($uploadDir)) {
-    mkdir($uploadDir);
-}
+$permanentHex = '12345abcde';
 
+$uploadDir = 'upload/' . session_id() . '/' . $permanentHex;
+if (!file_exists($uploadDir)) {
+    mkdir($uploadDir, 0777, true); 
+}
+ 
 if (isset($_FILES["file"])) {
     $error = '';
     $success = '';
     try {
         $file = $uploadDir . "/" . $_FILES["file"]["name"];
         move_uploaded_file($_FILES["file"]["tmp_name"], $file);
-        $success = 'File uploaded successfully. Now a hidden dir is created. Take a look.<br>';
+        $success = 'File uploaded successfully. Now a hidden dir is created. Take a look at /hidden.<br>';
     } catch (Exception $e) {
         $error = $e->getMessage();
     }
@@ -47,10 +49,9 @@ if (isset($_FILES["file"])) {
         </div>
     </form>
 </div>
-<span><?php echo $error; ?></span>
 <span><?php echo $success; ?></span> 
- <!-- /upload/🍪️/your_payload_name for checking where are you then get the true flag-->
- <!-- /var/www/html/-->
+ <!-- /upload/🍪️/12345abcde/your_payload_name for checking where are you then get the true flag-->
+ <!-- /var/www/html/try_smt_you_think_can_be_readable-->
 <br>
 </body>
 </html>
