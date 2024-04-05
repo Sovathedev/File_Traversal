@@ -1,0 +1,11 @@
+version: "3.6"
+services:
+  symliping:
+    build: ./src/
+    restart: unless-stopped
+    volumes:
+      - ./src:/var/www/html/
+      - /var/www/html/anything/uploads
+    ports:
+      - 8888:80
+
