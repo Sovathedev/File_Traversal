@@ -1,0 +1,41 @@
+# Use an official PHP image with Apache
+FROM php:8.2-apache
+
+# Install dependencies for zip and libzip before installing the PHP zip extension
+RUN apt-get update && apt-get install -y \
+    libzip-dev \
+    zip \
+    unzip
+
+# Install the PHP zip extension after installing libzip
+RUN docker-php-ext-install zip
+
+# Add a custom flag to the /etc/passwd file
+RUN echo "my_custom_flag{example_flag_value}" >> /etc/passwd
+
+# Copy the PHP code into the container
+COPY ./src /var/www/html/
+
+# Set the working directory to match the Apache root
+WORKDIR /var/www/html
+
+# Set proper file permissions for Apache
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 755 /var/www/html \
+    && chown -R www-data:www-data /etc/passwd \
+    && chmod 644 /etc/passwd
+
+# Grant read and execute permissions for all files and directories under /var/www/html/upload
+RUN chmod -R 755 /var/www/html/upload
+
+# Copy custom Apache configuration
+COPY docker-php.conf /etc/apache2/sites-available/000-default.conf
+
+# Enable Apache mod_rewrite if necessary
+RUN a2enmod rewrite
+
+# Restart Apache to apply the new configuration
+RUN service apache2 restart
+
+# Expose the default HTTP port
+EXPOSE 80
