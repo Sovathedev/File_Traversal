@@ -4,7 +4,7 @@ services:
     build: ./Fileupload
     restart: unless-stopped
     ports:
-      - "7777:80"
+      - "1111:80"
     volumes:
       - ./Fileupload/src:/var/www/html
       - /var/www/html/upload

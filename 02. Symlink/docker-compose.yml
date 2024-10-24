@@ -5,7 +5,7 @@ services:
       context: ./symlink
       dockerfile: Dockerfile
     ports:
-      - "8080:80"
+      - "2222:80"
     volumes:
       - ./symlink/src:/var/www/html
     restart: always
