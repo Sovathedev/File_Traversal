@@ -8,7 +8,7 @@ if (isset($_SESSION["username"])) {
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["username"]) && isset($_POST["password"])) {
     $username = $_POST["username"];
     $password = $_POST["password"];
-    if ($username === "from 1 to 1000" && $password === "root") {
+    if ($username === "admin" && $password === "1 to 1000") {
         $_SESSION["username"] = $username;
         header("Location: fileupload.php");
         exit;
@@ -31,9 +31,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["username"]) && isset($
         <h2>Login</h2>
         <form method="post">
             <input type="text" name="username" placeholder="Username" required><br>
-                               <!-- wanna get username ? Try : from 1 to 1000 -->
+                               <!-- wanna get username ? Are you admin ? -->
             <input type="password" name="password" placeholder="Password" required><br>
-                              <!-- wanna get password ? Try : root -->  
+                              <!-- wanna get password ? Try : 1 to 1000 -->  
             <input type="submit" value="Login">
             <span style="color:red"><?php echo isset($error) ? $error : ''; ?></span>
         </form>

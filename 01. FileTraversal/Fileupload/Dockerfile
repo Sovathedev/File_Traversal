@@ -1,4 +1,4 @@
-FROM php:7.3-apache
+FROM php:8.3-apache
 WORKDIR /var/www/html/
 
 COPY ./src .
@@ -10,12 +10,16 @@ RUN chmod 750 /var/www/html
 RUN find . -type f -exec chmod 640 {} \;
 RUN find . -type d -exec chmod 750 {} \;
 
-RUN echo "Congratulations. /secret.html" > /var/www/html/hidden/fakesecret.txt
-RUN chmod a+r /var/www/html/hidden/fakesecret.txt
+RUN mkdir -p /var/www/html/upload && \
+    chown -R www-data:www-data /var/www/html/upload && \
+    chmod -R 750 /var/www/html/upload
 
-RUN chmod g+w /var/www/html/upload
-RUN chmod +t -R /var/www/html/upload
-RUN echo "Congratulations. I'm so proud of you my boys. You got not only flag but also my respect. " > /var/www/html/upload/secret.txt
-RUN chmod +r robots.txt
+RUN mkdir -p /var/www/html/secret && \
+    chown -R www-data:www-data /var/www/html/secret && \
+    chmod -R 750 /var/www/html/secret
+RUN echo "{Th1s_1s_y0ur_fl4g_n1ce_try!}" > /var/www/html/secret/flag.txt
+RUN chmod 644 /var/www/html/secret/flag.txt
+RUN chmod 644 /var/www/html/robots.txt
+
 
 

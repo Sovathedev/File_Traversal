@@ -8,7 +8,6 @@ services:
     volumes:
       - ./Fileupload/src:/var/www/html
       - /var/www/html/upload
-      - /var/www/html/hidden
-      
+      - /var/www/html/secret
      
     

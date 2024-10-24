@@ -5,22 +5,36 @@ if (!isset($_SESSION["username"])) {
     exit;
 }
 
-$permanentHex = '12345abcde';
+// Define a random string for the subdirectory name
+$randomstring = '12345abcde';
 
-$uploadDir = 'upload/' . session_id() . '/' . $permanentHex;
+// Define the base upload directory
+$baseUploadDir = __DIR__ . '/upload';
+
+// Define the user's session-specific directory
+$uploadDir = $baseUploadDir . '/' . session_id() . '/' . $randomstring;
+
+// Create the session-specific directory if it doesn't exist
 if (!file_exists($uploadDir)) {
-    mkdir($uploadDir, 0777, true); 
+    mkdir($uploadDir, 0750, true);
 }
- 
+
+$error = '';
+$success = '';
+
+// Handle file upload
 if (isset($_FILES["file"])) {
-    $error = '';
-    $success = '';
     try {
-        $file = $uploadDir . "/" . $_FILES["file"]["name"];
-        move_uploaded_file($_FILES["file"]["tmp_name"], $file);
-        $success = 'File uploaded successfully. Now a hidden dir is created. Take a look at /hidden.<br>';
+        $filePath = $uploadDir . '/' . basename($_FILES["file"]["name"]);
+        
+        // Move the uploaded file to the specified directory
+        if (move_uploaded_file($_FILES["file"]["tmp_name"], $filePath)) {
+            $success = 'File uploaded successfully.<br>';
+        } else {
+            $error = 'Failed to upload the file.';
+        }
     } catch (Exception $e) {
-        $error = $e->getMessage();
+        $error = 'Error: ' . $e->getMessage();
     }
 }
 ?>
@@ -36,25 +50,26 @@ if (isset($_FILES["file"])) {
           crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-<p class="display-4 text-center red-text">Goal: Get the 'TRUE' flag! But at first, try to upload smt.</p>
-<br/>
-<div class="centered">
-    <form method="post" enctype="multipart/form-data">
-        <div class="form-group">
-            <label for="file" class="font-weight-bold">Select file to upload:</label>
-            <input type="file" class="form-control-file" name="file" id="file">
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-success">Submit</button>
-        </div>
-    </form>
-</div>
-<span><?php echo $success; ?></span> 
- <!-- /upload/🍪️/12345abcde/your_payload_name for checking where are you then get the true flag-->
- <!-- /var/www/html/try_smt_you_think_can_be_readable-->
-<br>
+    <p class="display-4 text-center text-danger">Get the flag that inside directory "secret". But where is that directory ?</p>
+    <br/>
+    <div class="container">
+        <?php if ($error): ?>
+            <div class="alert alert-danger"><?php echo htmlspecialchars($error); ?></div>
+        <?php endif; ?>
+        <?php if ($success): ?>
+            <div class="alert alert-success"><?php echo htmlspecialchars($success); ?></div>
+        <?php endif; ?>
+        <form method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="file" class="font-weight-bold">Select file to upload:</label>
+                <input type="file" class="form-control-file" name="file" id="file" required>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">Submit</button>
+                <!-- You can upload a simple RCE payload to look around-->
+            </div>
+        </form>
+    </div>
+    <br>
 </body>
 </html>
-
-
-

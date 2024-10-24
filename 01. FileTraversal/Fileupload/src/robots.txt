@@ -1,1 +1,1 @@
-/trueflag.txt
+<!-- __DIR__/upload/cookie/12345abcde/payload?-->
