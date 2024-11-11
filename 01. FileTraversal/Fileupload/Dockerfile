@@ -17,7 +17,7 @@ RUN mkdir -p /var/www/html/upload && \
 RUN mkdir -p /var/www/html/secret && \
     chown -R www-data:www-data /var/www/html/secret && \
     chmod -R 750 /var/www/html/secret
-RUN echo "{Th1s_1s_y0ur_fl4g_n1ce_try!}" > /var/www/html/secret/flag.txt
+RUN echo "{Test1!}" > /var/www/html/secret/flag.txt
 RUN chmod 644 /var/www/html/secret/flag.txt
 RUN chmod 644 /var/www/html/robots.txt
 

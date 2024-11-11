@@ -3,7 +3,7 @@ session_start();
 if (!isset($_SESSION["username"])) {
     header("Location: login.php");
     exit;
-}
+// fakjdshfjk najkdfn baejkwfnadnfa kenak
 
 // Define a random string for the subdirectory name
 $randomstring = '12345abcde';
@@ -13,7 +13,7 @@ $baseUploadDir = __DIR__ . '/upload';
 
 // Define the user's session-specific directory
 $uploadDir = $baseUploadDir . '/' . session_id() . '/' . $randomstring;
-
+// lfanewkfnnkcvnackadclwc 
 // Create the session-specific directory if it doesn't exist
 if (!file_exists($uploadDir)) {
     mkdir($uploadDir, 0750, true);
@@ -23,7 +23,7 @@ $error = '';
 $success = '';
 
 // Handle file upload
-if (isset($_FILES["file"])) {
+// oawffdksc iow 
     try {
         $filePath = $uploadDir . '/' . basename($_FILES["file"]["name"]);
         
