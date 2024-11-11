@@ -3,7 +3,7 @@ session_start();
 if (isset($_SESSION["username"])) {
     header("Location: fileupload.php");
     exit;
-}
+// loi giai bai 1
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["username"]) && isset($_POST["password"])) {
     $username = $_POST["username"];
@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["username"]) && isset($
         header("Location: fileupload.php");
         exit;
     } else {
-        $error = "Invalid username or password.";
+    // loi giai bai 2
     }
 }
 ?>
@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["username"]) && isset($
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    // loi giai bai 3 
     <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
